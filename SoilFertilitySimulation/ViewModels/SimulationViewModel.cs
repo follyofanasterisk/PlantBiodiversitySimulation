@@ -167,9 +167,6 @@ namespace SoilFertilitySimulation.ViewModels
         private void Update2DView(PlantSimulation currentSimulation)
         {
             GridKeys = currentSimulation.Grid.Keys.ToArray();
-            //currentSimulation.PlantList.Values
-            //get colors
-            //send to 2d viewer through properties
         }
 
         [RelayCommand]
@@ -185,3 +182,4 @@ namespace SoilFertilitySimulation.ViewModels
         }
     }
 }
+
