@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:SoilFertilitySimulation.ViewModels"
+             xmlns:views="clr-namespace:SoilFertilitySimulation.Views"
+             xmlns:controls="using:SoilFertilitySimulation.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SoilFertilitySimulation.Views.SimulationView"
+             x:DataType="vm:SimulationViewModel">
+           <DockPanel Margin="5">
+			   <Grid DockPanel.Dock="Left"
+                  RowDefinitions="*, Auto"
+                  Margin="5"
+                  MaxWidth="175"
+                  HorizontalAlignment="Left">
+                   <ScrollViewer Grid.Row="0">
+                   <ListBox ItemsSource="{Binding SpeciesList}">
+                       <ListBox.ItemTemplate>
+						   <DataTemplate>
+							   <views:SimulationControlButtonView/>
+                           </DataTemplate>
+                       </ListBox.ItemTemplate>
+                    </ListBox>
+                   </ScrollViewer>
+                   <StackPanel Grid.Row="1"
+                               Orientation="Vertical"
+                               Margin="0 0 0 20">
+                   <Separator Margin="5 5 5 0"/>
+				   <TextBlock Text="Species Creator" Margin="5 10 5 10" TextAlignment="Center"/>
+                   <TextBox Watermark="Name" Text="{Binding NewSpeciesName}" ToolTip.Tip="Name"/>
+                   <NumericUpDown Watermark="Reach" Value="{Binding NewSpeciesReach}" Minimum="0" Maximum="10" ShowButtonSpinner="False" ToolTip.Tip="Reach"/>
+                   <NumericUpDown Watermark="Strength" Value="{Binding NewSpeciesStrength}" Minimum="0" ShowButtonSpinner="False" ToolTip.Tip="Strength"/>
+                   <NumericUpDown Watermark="Consumption" Value="{Binding NewSpeciesConsumption}" Minimum="0" ShowButtonSpinner="False" ToolTip.Tip="Consumption"/>
+                   <Button Command="{Binding AddSpeciesToListCommand}"
+                           HorizontalAlignment="Stretch">Create New</Button>
+                   </StackPanel>
+               </Grid>
+               <StackPanel DockPanel.Dock="Right"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center">
+                   <TextBlock Text="{Binding SimulationTimeString}"/>
+                   <TextBlock Text="{Binding NumberOfPlants}"/>
+                   <Button Command="{Binding StartSimulationCommand}"
+                   HorizontalAlignment="Stretch"
+                   HorizontalContentAlignment="Center"
+                   ToolTip.Tip="Starts the simulation">
+					   Start Simulation
+                   </Button>
+                   <Button Command="{Binding SimulateSingleTimeStepCommand}"
+                           HorizontalAlignment="Stretch"
+                           HorizontalContentAlignment="Center"
+                           ToolTip.Tip="Simulates a single timestep">
+                       +1
+                   </Button>
+                   <Grid ColumnDefinitions="*, *" HorizontalAlignment="Stretch">
+					   <Button Command="{Binding PauseSimulationCommand}"
+                Grid.Column="0"   
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                ToolTip.Tip="The simulation must be running to pause the simulation"> 
+                       Pause</Button>
+                       <Button Command="{Binding ResumeSimulationCommand}"
+                       Grid.Column="1"
+                       HorizontalAlignment="Stretch" 
+                       HorizontalContentAlignment="Center"
+                       ToolTip.Tip="The simulation must be paused to resume the simulation">
+                           Resume</Button>
+                   </Grid>
+				   <Button Command="{Binding RestartSimulationCommand}"
+                   HorizontalAlignment="Stretch"
+               HorizontalContentAlignment="Center"   
+               ToolTip.Tip="Deletes all of the plants and resets the simulations">
+                       Reset Simulation
+                </Button>
+               </StackPanel>
+               <StackPanel DockPanel.Dock="Bottom"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Bottom">
+				   <!--<Button Command="{Binding Open3DWindowCommand}"
+                    ToolTip.Tip="Creates a new window with a 3D visualization">
+                       Visualize in 3D
+       </Button>-->
+               </StackPanel>
+               <Panel HorizontalAlignment="Stretch"
+                       Margin="10">
+                   <controls:_2DViewer IsRunning="{Binding Is2DViewActive}"
+                                       WorldGrid="{Binding GridKeys}"/>
+                   <Button Command="{Binding Start2DVisualizationCommand}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           IsVisible="{Binding !Is2DViewActive}"
+                           ToolTip.Tip="Renders a 2D visualization of the plant simulation">
+                       Visualize in 2D
+                   </Button>
+                   <Button Command="{Binding Stop2DVisualizationCommand}"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Right"
+                           IsVisible="{Binding Is2DViewActive}"
+                           ToolTip.Tip="Stops the 2D visualization">
+					   X
+                   </Button>
+               </Panel>
+           </DockPanel>
+</UserControl>

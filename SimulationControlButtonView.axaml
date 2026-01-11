@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:SoilFertilitySimulation.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SoilFertilitySimulation.Views.SimulationControlButtonView"
+             x:DataType="vm:SimulationControlButtonViewModel"
+             MaxWidth="175">
+  <Border Margin="5" Padding="5">
+	  <StackPanel Orientation="Vertical">
+	        <TextBox Watermark="Name"
+                  ToolTip.Tip="Name of Plant"
+                  Text="{Binding Species.Name}"
+                  HorizontalContentAlignment="Right"
+                  IsReadOnly="True">
+            <TextBox.InnerLeftContent>
+				<TextBlock VerticalAlignment="Center"
+               Text="Name:" Margin="5"/>
+            </TextBox.InnerLeftContent>
+            </TextBox>
+          <TextBox Watermark="Value" 
+                   ToolTip.Tip="How far the plant can reach"
+                   Text="{Binding Species.Reach}"
+                   HorizontalContentAlignment="Right"
+                   IsReadOnly="True">
+			  <TextBox.InnerLeftContent>
+				  <TextBlock VerticalAlignment="Center"
+                  Text="Reach:" Margin="5"/>
+              </TextBox.InnerLeftContent>
+          </TextBox>
+                    <TextBox Watermark="Value"
+                             ToolTip.Tip="How much of the richness a plant takes"
+                             Text="{Binding Species.Strength}"
+                             HorizontalContentAlignment="Right"
+                             IsReadOnly="True">
+			  <TextBox.InnerLeftContent>
+				  <TextBlock VerticalAlignment="Center"
+                  Text="Strength:" Margin="5"/>
+              </TextBox.InnerLeftContent>
+          </TextBox>
+          <TextBox Watermark="Value" 
+                   ToolTip.Tip="How much dirt is needed for it to live"
+                   Text="{Binding Species.Consumption}"
+                   HorizontalContentAlignment="Right"
+                   IsReadOnly="True">
+			  <TextBox.InnerLeftContent>
+				  <TextBlock VerticalAlignment="Center" 
+                 Text="Consumption:" Margin="5"/>
+              </TextBox.InnerLeftContent>
+          </TextBox>
+          <Button Command="{Binding TellSimulationViewToAddToSpeciesCommand}"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center">
+			  Add
+          </Button>
+      </StackPanel>
+  </Border>
+</UserControl>
